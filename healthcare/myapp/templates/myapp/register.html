@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="healthcare/myapp/static/myapp/css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 glass mt-5">
+                    <h2>Register</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <a href="{% url 'healthcare:login' %}" class="btn btn-link ml-2">Already have an account?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
