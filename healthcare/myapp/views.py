@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from.forms import RegistrationForm
-
+from .forms import RegistrationForm
 
 def register(request):
     if request.method == "POST":
@@ -12,9 +11,9 @@ def register(request):
             user.save()
             login(request, user)
             return redirect('home')
-        else:
-            form = RegistrationForm()
-        return render(request,'register.html', {'form': form})
+    else:
+        form = RegistrationForm()
+    return render(request, './register.html', {'form': form})
     
 def signin(request):
     if request.method == "POST":
@@ -25,21 +24,25 @@ def signin(request):
             login(request, user)
             return redirect('home')
         else:
-            return render(request,'signin.html', {'error': 'Invalid credentials'})
-    return render(request,'signin.html')
+            return render(request, './signin.html', {'error': 'Invalid credentials'})
+    return render(request, './signin.html')
 
 def upload_data(request):
     # Code for uploading data goes here
-    return render(request, 'upload_data.html')
+    return render(request, './upload_data.html')
 
 def cnn(request):
     # Code for training CNN goes here
-    return render(request, 'cnn.html')
+    return render(request, './cnn.html')
 
 def predict(request):
     # Code for making predictions goes here
-    return render(request, 'predict.html')
+    return render(request, './predict.html')
 
 def medication(request):
     # Code for generating medication plan goes here
-    return render(request, 'medication.html')
+    return render(request, './medication.html')
+
+def home(request):
+    # Code for home page goes here
+    return render(request, './dashboard.html')

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign In</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="healthcare/myapp/static/myapp/css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 glass mt-5">
+                    <h2> Upload Data </h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="file" class="form-control mb-2">
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

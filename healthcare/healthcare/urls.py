@@ -17,10 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from . import views
+from myapp import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", views.home, name="home"),  # Redirect to home page when accessed directly
     path("register/", views.register, name="register"),
     path("signin/", views.signin, name="signin"),
     path("admin/upload_data/", views.upload_data, name="upload_data"),

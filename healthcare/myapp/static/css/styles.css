@@ -1,5 +1,5 @@
 body{
-    background: url('healthcare/myapp/static/myapp/img/your-background-image.jpg');
+    background: url('./img/bg.jpg');
     background-size: cover;
 }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register</title>
+        <title>Sign In</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="healthcare/myapp/static/myapp/css/styles.css">
     </head>
@@ -9,12 +9,12 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 glass mt-5">
-                    <h2>Register</h2>
-                    <form method="POST">
+                    <h2>Predict</h2>
+                    <form method="post">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Register</button>
-                        <a href="{% url 'healthcare:login' %}" class="btn btn-link ml-2">Already have an account?</a>
+                        <input type="text" name="input_data" placeholder="Enter data for prediction" class="form-control mb-2">
+                        <button type="submit" class="btn btn-primary">Predict</button>
+                        <p>Predicted sentiment: <span id="sentiment"></span></p>
                     </form>
                 </div>
             </div>
