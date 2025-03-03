@@ -18,14 +18,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from myapp import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),  # Redirect to home page when accessed directly
     path("register/", views.register, name="register"),
     path("signin/", views.signin, name="signin"),
-    path("admin/upload_data/", views.upload_data, name="upload_data"),
-    path("admin/cnn/", views.cnn, name="cnn"),
-    path("user/predict/", views.predict, name="predict"),
-    path("user/medication/", views.medication, name="medication"),
+    path("upload_data/", views.upload_data, name="upload_data"),
+    path("cnn/", views.cnn, name="cnn"),
+    path("predict/", views.predict, name="predict"),
+    path("medication/", views.medication, name="medication"),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     ]
+

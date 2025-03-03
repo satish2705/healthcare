@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import user_passes_test
 from .forms import RegistrationForm
+from .models import Activity
+
 
 def register(request):
     if request.method == "POST":
@@ -27,6 +30,7 @@ def signin(request):
             return render(request, './signin.html', {'error': 'Invalid credentials'})
     return render(request, './signin.html')
 
+@user_passes_test(lambda u: u.is_superuser)
 def upload_data(request):
     # Code for uploading data goes here
     return render(request, './upload_data.html')
@@ -44,5 +48,6 @@ def medication(request):
     return render(request, './medication.html')
 
 def home(request):
-    # Code for home page goes here
-    return render(request, './dashboard.html')
+    recent_activities = Activity.objects.order_by('-activity_time')[:10]  # Fetch the 10 most recent activities
+    return render(request, './dashboard.html', {'recent_activities': recent_activities})
+
