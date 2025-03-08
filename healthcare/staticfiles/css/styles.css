@@ -1,10 +1,10 @@
 body{
-    background: url('./img/bg.jpg');
-    background-size: cover;
+    background: rgba(255,255,255, 0.9), url('../img/123.jpeg');
+    background-size: cover;    
 }
 
 .glass{
-    background: rgba(255, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
