@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-f*i=)0d4p(68d-*1v)iwpap21_^##(^!np14m3q9jh!0tr!j^7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -117,8 +117,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'myapp/static')]
+# URL to access static files
+STATIC_URL = '/static/'
+
+# Directory for collected static files (used in production)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional directories for static files (if needed)
+STATICFILES_DIRS = [
+    BASE_DIR / 'healthcare/myapp/static',  # Custom static directory
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
