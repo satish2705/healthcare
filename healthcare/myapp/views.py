@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from .forms import RegistrationForm
 from .models import Activity
+from django.conf import settings
 
  
 def register(request):
