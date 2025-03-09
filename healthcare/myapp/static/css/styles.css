@@ -27,3 +27,11 @@ footer {
 .navbar-nav {
     padding-left: 10px;
 }
+
+.invalid-feedback {
+    color: #dc3545; /* Red for error messages */
+    font-size: 0.875em;
+    display: inline; /* Makes the error inline */
+    margin-left: 10px; /* Adjust spacing */
+    vertical-align: middle; /* Align with input field */
+}

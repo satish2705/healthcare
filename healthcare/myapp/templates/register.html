@@ -1,15 +1,20 @@
 {% extends 'header.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-            <div class="row justify-content-center">
-                <div class="col-md-6 glass mt-5">
+            <div class="row justify-content-center mx-auto">
+                <div class="col-md-6 text-center glass mt-3">
                     <h2>Register</h2>
                     <form method="POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        <!-- {{ form.as_div|safe }} -->
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field }}
+                            </div>
+                        {% endfor %}    
                         <button type="submit" class="btn btn-primary">Register</button>
-                        <a href="{% url 'signin'}" class="btn btn-link ml-2">Already have an account?</a>
                     </form>
+                    <a href="{% url 'signin' %}" >Already have an account?</a>
                 </div>
             </div>
 {% endblock %}
