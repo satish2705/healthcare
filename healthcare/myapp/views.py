@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .forms import RegistrationForm
 from .models import Activity
 
-
+ 
 def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
