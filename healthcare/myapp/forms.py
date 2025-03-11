@@ -1,47 +1,51 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+# Get the custom user model dynamically
+CustomUser = get_user_model()
 
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Username'}),
         label=""
-        )
+    )
     
     mobile = forms.CharField(
         max_length=15,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Mobile Number'}),
-        label=""
-        )
+        label="",
+        help_text="Enter a 10-digit mobile number."
+    )
 
     email = forms.EmailField(
         max_length=100,
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter Email'}),
         label=""
-        )
+    )
     
     age = forms.IntegerField(
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Age'}),
         label=""
-        )
+    )
     
     password = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter Password', 'id': 'password'}),
         label=""
-        )
+    )
     
     confirm_password = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Re-enter Password', 'id': 'c_password'}),
         label=""
-        )
+    )
     
     address = forms.CharField(
         max_length=100,
         widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Address', 'style': 'height: 100px;'}),
         label=""
-        )    
+    )    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,14 +55,13 @@ class RegistrationForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] += ' is-valid'
 
-
     class Meta:
-        model = User
+        model = CustomUser  # Use the custom user model
         fields = ['username', 'mobile', 'email', 'age', 'password', 'confirm_password', 'address']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
+        if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already exists.")
         return email
     
@@ -72,8 +75,8 @@ class RegistrationForm(forms.ModelForm):
     
     def clean_address(self):
         address = self.cleaned_data.get('address')
-        if len(address.split()) < 3:  # Example: Require at least 3 words
-            raise forms.ValidationError("Please enter a valid address.")
+        if len(address) < 10:  # Example: Minimum of 10 characters
+            raise forms.ValidationError("Address is too short. Please provide a more descriptive address.")
         return address
 
     def clean(self):

@@ -1,12 +1,25 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+class CustomUser(AbstractUser):
+    """
+    Extends the default Django User model to add custom fields.
+    """
+    mobile = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    age = models.PositiveIntegerField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username}'s Profile"
+        return self.username
+    
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
+#     def __str__(self):
+#         return f"{self.user.username}'s Profile"
 
 
 # activity profile starts
@@ -19,7 +32,7 @@ ACTIVITY_CHOICES = [
 ]
 
 class Activity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     activity_type = models.CharField(max_length=100, choices=ACTIVITY_CHOICES)
     activity_time = models.DateTimeField(auto_now_add=True)
 

@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect 
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.decorators import user_passes_test
+from django.conf import settings
 from .forms import RegistrationForm
 from .models import Activity
-from django.conf import settings
 
- 
+# Get the custom user model
+User = get_user_model()
+
 def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -51,4 +53,3 @@ def medication(request):
 def home(request):
     recent_activities = Activity.objects.order_by('-activity_time')[:10]  # Fetch the 10 most recent activities
     return render(request, './dashboard.html', {'recent_activities': recent_activities})
-
