@@ -3,46 +3,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-class CustomUser(AbstractUser):
-    """
-    Extends the default Django User model to add custom fields.
-    """
-    mobile = models.CharField(max_length=15, unique=True, null=True, blank=True)
-    age = models.PositiveIntegerField(null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
 
     def __str__(self):
-        return self.username
-    
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-
-#     def __str__(self):
-#         return f"{self.user.username}'s Profile"
-
-
-# activity profile starts
-
-ACTIVITY_CHOICES = [
-    ('login', 'Login'),
-    ('logout', 'Logout'),
-    ('purchase', 'Purchase'),
-    ('comment', 'Comment'),
-]
+        return f"{self.user.username}'s Profile"
 
 class Activity(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    activity_type = models.CharField(max_length=100, choices=ACTIVITY_CHOICES)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=100)
     activity_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.get_activity_type_display()} at {self.activity_time}"
-
-# class Activity(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     activity_type = models.CharField(max_length=100)
-#     activity_time = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"{self.user.username} - {self.activity_type} at {self.activity_time}"
+        return f"{self.user.username} - {self.activity_type} at {self.activity_time}"
